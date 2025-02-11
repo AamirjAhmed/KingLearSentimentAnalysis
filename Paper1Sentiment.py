@@ -1,5 +1,5 @@
 import re
-import nltk  # type: ignore
+import nltk    #type: ignore
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer  # type: ignore
 import pandas as pd  # type: ignore
 import matplotlib.pyplot as plt  # type: ignore
@@ -340,7 +340,8 @@ elif choice == "6":
     def print_top_bottom_sentiments(file_path, analyzer, output):
         """
         Collects dialogue for King Lear, GONERIL, REGAN, and CORDELIA,
-        then prints out the top 3 most positive and top 3 most negative sentiments.
+        then prints out the top 3 most positive and top 3 most negative statements
+        overall, including compound, positive, neutral, and negative scores.
         """
         speakers = {
             "King Lear": extract_lear_dialogue,
@@ -352,8 +353,17 @@ elif choice == "6":
         for speaker, extractor in speakers.items():
             dialogues = extractor(file_path)
             for i, dialogue in enumerate(dialogues, start=1):
-                comp = analyzer.polarity_scores(dialogue)['compound']
-                all_results.append({"speaker": speaker, "block_index": i, "text": dialogue, "compound": comp})
+                sentiment = analyzer.polarity_scores(dialogue)
+                all_results.append({
+                    "speaker": speaker,
+                    "block_index": i,
+                    "text": dialogue,
+                    "compound": sentiment['compound'],
+                    "pos": sentiment['pos'],
+                    "neu": sentiment['neu'],
+                    "neg": sentiment['neg']
+                })
+        # Sort by compound score for negative and positive extremes
         negative_sorted = sorted(all_results, key=lambda x: x["compound"])
         positive_sorted = sorted(all_results, key=lambda x: x["compound"], reverse=True)
         
@@ -361,21 +371,26 @@ elif choice == "6":
         output.write(msg)
         print(msg)
         for result in negative_sorted[:3]:
-            msg = (f"Speaker: {result['speaker']}, Block #{result['block_index']} (Compound Score: {result['compound']}):\n"
+            msg = (f"Speaker: {result['speaker']}, Block #{result['block_index']}:\n"
+                   f"Compound Score: {result['compound']}, Positive: {result['pos']}, Neutral: {result['neu']}, Negative: {result['neg']}\n"
                    f"{result['text']}\n" + "-"*40 + "\n")
             output.write(msg)
             print(msg)
+
+        print("\n" * 30)
     
         msg = "\nTop 3 Most Positive Statements Overall:\n"
         output.write(msg)
         print(msg)
         for result in positive_sorted[:3]:
-            msg = (f"Speaker: {result['speaker']}, Block #{result['block_index']} (Compound Score: {result['compound']}):\n"
+            msg = (f"Speaker: {result['speaker']}, Block #{result['block_index']}:\n"
+                   f"Compound Score: {result['compound']}, Positive: {result['pos']}, Neutral: {result['neu']}, Negative: {result['neg']}\n"
                    f"{result['text']}\n" + "-"*40 + "\n")
             output.write(msg)
             print(msg)
     
     print_top_bottom_sentiments(file_path, analyzer, output)
+
 
 elif choice == "7":
     char_choice = input("Enter: 1 for King Lear, 2 for GONERIL, 3 for REGAN, 4 for CORDELIA: ").strip()
