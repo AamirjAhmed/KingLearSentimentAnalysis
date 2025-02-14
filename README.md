@@ -34,15 +34,21 @@ This repository contains Python scripts for performing sentiment analysis on the
 - **Visualization Functions:**  
   Provides options for plotting sentiment progression, interactive clickable plots, heatmaps, and sliding window analyses for Scene 1 and across scenes.
 
-- **Main Program:**  
-  Offers a menu-driven interface that lets users select from various analysis options. The program writes its output to an `output.txt` file and displays plots interactively.
+- **Main Programs:**  
+  - **paper1sentiment.py:** General sentiment analysis for the entire play.
+  - **SentimentTest.py:** Focused sentiment analysis for the first scene only.
 
 - **Input File:**  
   The scripts expect the play text file (`KingLear.txt`) to be present in the repository (or you can adjust the file path accordingly).
 
+## Findings & Research Insights
+
+- The "mad" characters (Lear, the Fool, and Edgar) show oscillating sentiment with dramatic fluctuations in positive and negative scores.
+- In the general analysis (`paper1sentiment.py`), the highest compound sentiment scores were found in love confessions, with Cordelia’s confession ranking at the top.
+
 ## Requirements
 
-- Python 3.x
+- Python 3.12
 - [nltk](https://www.nltk.org/)
 - [VADER Sentiment](https://github.com/cjhutto/vaderSentiment)
 - [pandas](https://pandas.pydata.org/)
