@@ -54,18 +54,13 @@ You can install the required packages using pip:
 ```bash
 pip install nltk vaderSentiment pandas matplotlib seaborn
 ```
-How to Run
-Prepare the Text File:
-Ensure that KingLear.txt (the full text of King Lear) is in the same directory as the Python scripts. (If needed, adjust the file path within the scripts.)
+## How to Run
 
-Execute the Script:
+### Prepare the Text File:
+Ensure that `KingLear.txt` (the full text of *King Lear*) is in the same directory as the Python scripts. (If needed, adjust the file path within the scripts.)
+
+### Execute the Script:
 Run the main Python file in your terminal:
 
-bash
-Copy
+```bash
 python your_script_name.py
-Select an Analysis Option:
-Follow the on-screen prompt to choose an option (e.g., analyze King Lear’s dialogue, combined scene analysis, detailed sentiment breakdown, etc.). For example, entering 1 might analyze King Lear’s dialogue sentiment, while entering 8 might generate additional visualizations for Scene 1.
-
-View Output:
-The script writes detailed results to an output.txt file and opens interactive plots that allow you to click on data points for more details.
